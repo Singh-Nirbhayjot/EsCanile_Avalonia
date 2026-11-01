@@ -57,7 +57,6 @@
 
         </StackPanel>
 
-        <!-- Elenco cani -->
         <StackPanel Grid.Column="1" Spacing="10">
 
             <TextBlock Text="CANI PRESENTI"
@@ -74,6 +73,11 @@
                      Height="450"
                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+
+            <ComboBox x:Name="cmbNuovoStato"/>
+
+            <Button Content="CAMBIA STATO"
+                    Click="CambiaStato_Click"/>
 
             <Button Content="ADOTTA CANE SELEZIONATO"
                     Click="AdottaCane_Click"/>

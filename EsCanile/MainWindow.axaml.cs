@@ -15,6 +15,7 @@ public partial class MainWindow : Window
 
         cmbRazza.ItemsSource = Enum.GetValues(typeof(Razza));
         cmbStato.ItemsSource = Enum.GetValues(typeof(Stato));
+        cmbNuovoStato.ItemsSource = Enum.GetValues(typeof(Stato));
 
         json = new CCanileJson();
         canile = new CCanile(json.Carica());
@@ -67,6 +68,11 @@ public partial class MainWindow : Window
         Razza razza = (Razza)cmbRazza.SelectedItem;
         Stato stato = (Stato)cmbStato.SelectedItem;
 
+        if (stato == Stato.Adottato)
+        {
+            txtMessaggio.Text = "Non puoi registrare un cane già adottato.";
+            return;
+        }
         DateTime data = dataIngresso.SelectedDate.Value.Date;
 
         if (data.Date > DateTime.Today)
@@ -144,5 +150,38 @@ public partial class MainWindow : Window
         cmbStato.SelectedIndex = -1;
 
         dataIngresso.SelectedDate = DateTime.Now;
+    }
+    private void CambiaStato_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        CCane? cane = listaCani.SelectedItem as CCane;
+
+        if (cane == null)
+        {
+            txtMessaggio.Text = "Seleziona un cane dalla lista.";
+            return;
+        }
+
+        if (cmbNuovoStato.SelectedItem == null)
+        {
+            txtMessaggio.Text = "Seleziona il nuovo stato.";
+            return;
+        }
+
+        Stato nuovoStato = (Stato)cmbNuovoStato.SelectedItem;
+
+        if (nuovoStato == Stato.Adottato)
+        {
+            canile.AggiornaStato(cane, nuovoStato);
+            canile.cani.Remove(cane);
+            txtMessaggio.Text = cane.Nome + " è stato adottato";
+            caniAdottati++;
+        }
+        else
+        {
+            txtMessaggio.Text = canile.AggiornaStato(cane, nuovoStato);
+        }
+
+        json.Salva(canile.cani);
+        AggiornaLista();
     }
 }
