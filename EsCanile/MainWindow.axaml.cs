@@ -22,7 +22,7 @@ public partial class MainWindow : Window
 
         AggiornaLista();
     }
-    private void AggiungiCane_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void AggiungiCane_Click(object? sender, EventArgs e)
     {
         string nome = txtNome.Text ?? "";
         string informazioni = txtInformazioni.Text ?? "";
@@ -116,7 +116,7 @@ public partial class MainWindow : Window
         AggiornaLista();
     }
 
-    private void AdottaCane_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void AdottaCane_Click(object? sender, EventArgs e)
     {
         CCane cane = listaCani.SelectedItem as CCane;
 
@@ -135,7 +135,7 @@ public partial class MainWindow : Window
 
         txtMessaggio.Text = cane.Nome + " è stato adottato";
     }
-    private void PulisciCampi_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void PulisciCampi_Click(object? sender, EventArgs e)
     {
         PulisciCampi();
         txtMessaggio.Text = "Campi puliti.";
@@ -151,7 +151,7 @@ public partial class MainWindow : Window
 
         dataIngresso.SelectedDate = DateTime.Now;
     }
-    private void CambiaStato_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void CambiaStato_Click(object? sender, EventArgs e)
     {
         CCane? cane = listaCani.SelectedItem as CCane;
 
